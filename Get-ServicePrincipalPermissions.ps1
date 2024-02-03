@@ -7,7 +7,7 @@ If (-Not(Test-Path -Path $folder)) { # Test if $folder exists
 Get-MgServicePrincipal | Format-Wide Id -Column 1 > $data # Get list of IDs then write to $data
 Get-Content $data | ? {$_.trim() -ne "" } | Set-Content $data # Strip empty lines from $data
 [System.IO.File]::ReadLines($data) | ForEach-Object { # Read IDs from $data then enter loop
-    $sp = Get-MgServicePrincipal -ServicePrincipalID $_ # Assign current ID to $sp
+    $sp = Get-MgServicePrincipal -ServicePrincipalID $_ # Assign current service principal to $sp
     $outFile = "$path/$($sp.displayName)_$($sp.Id).txt" # Assign filepath to $outFile
     Write-Output "Service principal: $($sp.displayName)" > $outFile # Write text to $outFile
     Write-Output "Client ID: $($sp.Id)" >> $outFile # Write text to $outFile
